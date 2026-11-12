@@ -1,0 +1,8 @@
+# Run Caddy on the same server as Docker Compose. Replace the hostname.
+your-mcp-host.example {
+    request_body {
+        max_size 4MB
+    }
+    reverse_proxy 127.0.0.1:8000
+    # Deliberately do not enable access logs: webhook verification has a secret query parameter.
+}
