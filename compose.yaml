@@ -1,0 +1,34 @@
+services:
+  api:
+    build: .
+    image: hsb-whatsapp-mcp:0.1.0
+    env_file: .env
+    environment:
+      HSB_DATA_DIR: /data
+      HSB_ACCESS_POLICY: /app/access-policy.json
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - knowledge:/data
+      - ./access-policy.json:/app/access-policy.json:ro
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: 1.0
+    security_opt:
+      - no-new-privileges:true
+  worker:
+    build: .
+    image: hsb-whatsapp-mcp:0.1.0
+    env_file: .env
+    environment:
+      HSB_DATA_DIR: /data
+    command: ["python", "-m", "hsb_mcp.worker"]
+    volumes:
+      - knowledge:/data
+    restart: unless-stopped
+    mem_limit: 1536m
+    cpus: 1.0
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  knowledge:
