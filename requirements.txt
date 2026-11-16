@@ -1,7 +1,0 @@
--c requirements.lock
-mcp==1.30.0
-httpx==0.28.1
-PyJWT[crypto]==2.15.1
-pypdf==6.21.4
-python-dotenv==1.2.4
-uvicorn==0.54.0
